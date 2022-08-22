@@ -29,7 +29,7 @@ jobs:
           outputs: |
             buidl/snek.svg
             buidl/snek-dark.svg?palette=github-dark
-            buidl/mario.svg?color_snake=red&color_dots=#FFE818,#FBCF1A,#F8B61C,#F49D1D,#F0841F
+            buidl/mario.svg?color_snake=red&color_dots=#00FFFFFF,#FBCF1A,#F8B61C,#F49D1D,#F0841F
 
       # push the content of <build_dir> to a branch
       # content will be available at https://raw.githubusercontent.com/<github_user>/<repository>/<target_branch>/<file> as a github page
