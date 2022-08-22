@@ -18,6 +18,7 @@
 [![Haskell](https://skillicons.dev/icons?i=haskell)](https://www.haskell.org/) -->
 
 ## †€☾♄♫⊙↳⊙❡♗€∫
+[![Git](https://skillicons.dev/icons?i=git)](https://git-scm.com/)
 [![Node.js](https://skillicons.dev/icons?i=nodejs)](https://nodejs.org/)
 [![React.js](https://skillicons.dev/icons?i=react)](https://reactjs.org/)
 [![Next.js](https://skillicons.dev/icons?i=nextjs)](https://nextjs.org/)
@@ -26,3 +27,13 @@
 [![Github Actions](https://skillicons.dev/icons?i=githubactions)](https://github.com/features/actions)
 [![AWS](https://skillicons.dev/icons?i=aws)](https://aws.amazon.com/)
 [![Figma](https://skillicons.dev/icons?i=figma)](https://www.figma.com/)
+
+## s͠n͠e͠k͠
+https://raw.githubusercontent.com/<github_user>/<repository>/<target_branch>/<file>
+
+
+
+![snek go brr](https://raw.githubusercontent.com/neila/neila/snek/snek.svg#gh-light-mode-only)
+![snek go brr](https://raw.githubusercontent.com/neila/neila/snek/snek-dark.svg#gh-dark-mode-only)
+
+![Mario](https://raw.githubusercontent.com/neila/neila/snek/mario.gif)
