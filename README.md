@@ -36,5 +36,3 @@
 
 ![snek go brr](https://raw.githubusercontent.com/neila/neila/snek/snek.svg#gh-light-mode-only)
 ![snek go brr](https://raw.githubusercontent.com/neila/neila/snek/snek-dark.svg#gh-dark-mode-only)
-
-![Mario](https://raw.githubusercontent.com/neila/neila/snek/mario.svg)

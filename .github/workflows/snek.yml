@@ -27,9 +27,8 @@ jobs:
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
-            buidl/snek.svg
-            buidl/snek-dark.svg?palette=github-dark
-            buidl/mario.svg?color_snake=red&color_dots=#00FFFFFF,#FBCF1A,#F8B61C,#F49D1D,#F0841F
+            buidl/snek.svg?color_snake=pink
+            buidl/snek-dark.svg?color_snake=pink&palette=github-dark
 
       # push the content of <build_dir> to a branch
       # content will be available at https://raw.githubusercontent.com/<github_user>/<repository>/<target_branch>/<file> as a github page
