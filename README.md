@@ -32,7 +32,7 @@
 [![Figma](https://skillicons.dev/icons?i=figma)](https://www.figma.com/)
 
 
-## s͠n͠e͠k͠
+## ˢ͠ⁿ͠ᵉ͠ᵏ͠
 
 ![snek go brr](https://raw.githubusercontent.com/neila/neila/snek/snek.svg#gh-light-mode-only)
 ![snek go brr](https://raw.githubusercontent.com/neila/neila/snek/snek-dark.svg#gh-dark-mode-only)
