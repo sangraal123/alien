@@ -34,5 +34,5 @@
 
 ## ˢ͠ⁿ͠ᵉ͠ᵏ͠
 
-![snek go brr](https://raw.githubusercontent.com/neila/neila/snek/snek.svg#gh-light-mode-only)
+![snek go brr](https://raw.githubusercontent.com/neila/neila/snek/snek-light.svg#gh-light-mode-only)
 ![snek go brr](https://raw.githubusercontent.com/neila/neila/snek/snek-dark.svg#gh-dark-mode-only)
