@@ -6,23 +6,21 @@
 
 ## ↳ꍏ♫❡ꍏ☋❡€∫
 
-[![Javascript](https://skillicons.dev/icons?i=js)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![Typescript](https://skillicons.dev/icons?i=ts)](https://www.typescriptlang.org/)
 [![Python](https://skillicons.dev/icons?i=py)](https://www.python.org/)
 [![Rust](https://skillicons.dev/icons?i=rust)](https://www.rust-lang.org/)
 [![Golang](https://skillicons.dev/icons?i=go)](https://go.dev/)
 [![R](https://skillicons.dev/icons?i=r)](https://www.r-project.org/)
 [![Solidity](https://skillicons.dev/icons?i=solidity)](https://soliditylang.org/)
+[![Julia](https://skillicons.dev/icons?i=julia)](https://julialang.org/)
 
-<!-- [![Julia](https://skillicons.dev/icons?i=julia)](https://julialang.org/)
-[![Haskell](https://skillicons.dev/icons?i=haskell)](https://www.haskell.org/) -->
+<!-- [![Haskell](https://skillicons.dev/icons?i=haskell)](https://www.haskell.org/) -->
 
 ## †€☾♄♫⊙↳⊙❡♗€∫
 
 [![Git](https://skillicons.dev/icons?i=git)](https://git-scm.com/)
 [![Node.js](https://skillicons.dev/icons?i=nodejs)](https://nodejs.org/)
 [![React.js](https://skillicons.dev/icons?i=react)](https://reactjs.org/)
-[![Next.js](https://skillicons.dev/icons?i=nextjs)](https://nextjs.org/)
 [![Pytorch](https://skillicons.dev/icons?i=pytorch)](https://pytorch.org/)
 [![Docker](https://skillicons.dev/icons?i=docker)](https://www.docker.com/)
 [![Github Actions](https://skillicons.dev/icons?i=githubactions)](https://github.com/features/actions)
