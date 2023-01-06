@@ -4,7 +4,7 @@ on:
   # run on every push to main branch
   push:
     branches:
-    - main
+      - main
 
   # run automatically once every day
   schedule:
@@ -13,7 +13,6 @@ on:
   # allows to run job manually
   workflow_dispatch:
 
-
 jobs:
   generate:
     runs-on: ubuntu-latest
@@ -21,7 +20,7 @@ jobs:
     steps:
       # generates a snake game from a github user (<github_user_name>) contributions graph, output a svg animation at <svg_out_path>
       - name: snek vector born
-        uses: Platane/snk/svg-only@v2
+        uses: Platane/snk@v2
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
