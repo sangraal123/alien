@@ -8,24 +8,28 @@
 
 [![Typescript](https://skillicons.dev/icons?i=ts)](https://www.typescriptlang.org/)
 [![Python](https://skillicons.dev/icons?i=py)](https://www.python.org/)
+[![Solidity](https://skillicons.dev/icons?i=solidity)](https://soliditylang.org/)
 [![Rust](https://skillicons.dev/icons?i=rust)](https://www.rust-lang.org/)
 [![Golang](https://skillicons.dev/icons?i=go)](https://go.dev/)
 [![R](https://skillicons.dev/icons?i=r)](https://www.r-project.org/)
-[![Solidity](https://skillicons.dev/icons?i=solidity)](https://soliditylang.org/)
-[![Julia](https://skillicons.dev/icons?i=julia)](https://julialang.org/)
 
+<!-- [![Perl](https://skillicons.dev/icons?i=perl)](https://www.perl.org/) -->
 <!-- [![Haskell](https://skillicons.dev/icons?i=haskell)](https://www.haskell.org/) -->
+<!-- [![Ruby](https://skillicons.dev/icons?i=ruby)](https://www.ruby-lang.org/) -->
+<!-- [![Julia](https://skillicons.dev/icons?i=julia)](https://julialang.org/) -->
+<!-- [![SQLite](https://skillicons.dev/icons?i=sqlite)](https://www.sqlite.org/) -->
+<!-- [![MySQL](https://skillicons.dev/icons?i=mysql)](https://www.mysql.com/) -->
 
-## †€☾♄♫⊙↳⊙❡♗€∫
+## ∫էꍏ☾Ҝ
 
+[![Vim](https://skillicons.dev/icons?i=vim)](https://www.vim.org/)
+[![Bash](https://skillicons.dev/icons?i=bash)](https://www.gnu.org/software/bash/)
 [![Git](https://skillicons.dev/icons?i=git)](https://git-scm.com/)
-[![Node.js](https://skillicons.dev/icons?i=nodejs)](https://nodejs.org/)
-[![React.js](https://skillicons.dev/icons?i=react)](https://reactjs.org/)
-[![Pytorch](https://skillicons.dev/icons?i=pytorch)](https://pytorch.org/)
 [![Docker](https://skillicons.dev/icons?i=docker)](https://www.docker.com/)
 [![Github Actions](https://skillicons.dev/icons?i=githubactions)](https://github.com/features/actions)
-[![AWS](https://skillicons.dev/icons?i=aws)](https://aws.amazon.com/)
-[![Figma](https://skillicons.dev/icons?i=figma)](https://www.figma.com/)
+[![IPFS](https://skillicons.dev/icons?i=ipfs)](https://ipfs.tech/)
+
+<!-- [![Ansible](https://skillicons.dev/icons?i=ansible)](https://www.ansible.com/) -->
 
 ## ˢ͠ⁿ͠ᵉ͠ᵏ͠
 
