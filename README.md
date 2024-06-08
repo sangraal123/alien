@@ -1,6 +1,6 @@
 # Unbelievable - CSS injections by neila
 
-- Version 1
+- Version 1 (patched)
 ````
 ```math
 \ce{$\unicode[goombafont; color:red; pointer-events: none; z-index: -10; position: fixed; top: 0; left: 0; height: 100vh; object-fit: cover; background-size: cover; width: 130vw; opacity: 0.5; background: url('https://github.com/neila/neila/assets/40727091/3b879f16-a197-4bd0-9405-8b8c64f80193');]{x0000}$}
