@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reaction Arena — 反応速度トレーナー</title>
+  <style>
+    :root {
+      --bg: #0c0f14;
+      --surface: #151a22;
+      --text: #e8ecf1;
+      --muted: #8b95a5;
+      --accent: #3dff9a;
+      --warn: #ffb020;
+      --bad: #ff4d6d;
+      --ring: rgba(61, 255, 154, 0.35);
+      font-family: "Segoe UI", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background: radial-gradient(ellipse 120% 80% at 50% -20%, #1a2435 0%, var(--bg) 55%);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    h1 {
+      font-size: clamp(1.25rem, 4vw, 1.75rem);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin: 0 0 0.25rem;
+    }
+    .tagline {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .arena {
+      width: min(100%, 420px);
+      aspect-ratio: 1;
+      border-radius: 1.25rem;
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4), 0 24px 48px rgba(0, 0, 0, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .arena:active { transform: scale(0.985); }
+    .arena.waiting { cursor: wait; }
+    .arena.go {
+      background: linear-gradient(145deg, #0d2818 0%, var(--surface) 100%);
+      box-shadow: 0 0 0 4px var(--ring), 0 24px 48px rgba(0, 0, 0, 0.45);
+    }
+    .arena.false-start {
+      animation: shake 0.35s ease;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+    .arena-inner {
+      text-align: center;
+      padding: 1rem;
+      z-index: 1;
+    }
+    .big {
+      font-size: clamp(2rem, 10vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .sub {
+      margin-top: 0.5rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .go-text {
+      color: var(--accent);
+      text-shadow: 0 0 24px rgba(61, 255, 154, 0.5);
+    }
+    .bad-text { color: var(--bad); }
+    .warn-text { color: var(--warn); }
+    .stats {
+      display: flex;
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .stats strong { color: var(--text); font-weight: 600; }
+    .bar {
+      margin-top: 1.5rem;
+      width: min(100%, 420px);
+      height: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), #7affc4);
+      border-radius: 99px;
+      transition: width 0.2s ease;
+    }
+    footer {
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <h1>Reaction Arena</h1>
+  <p class="tagline">緑になった瞬間にタップ。誤操作せず最速を狙え。</p>
+
+  <div id="arena" class="arena" role="button" tabindex="0" aria-label="ゲームエリア">
+    <div class="arena-inner">
+      <div id="mainText" class="big">スタート</div>
+      <div id="subText" class="sub">クリック / タップ / Space で開始</div>
+    </div>
+  </div>
+
+  <div class="stats" aria-live="polite">
+    <span>今回: <strong id="lastMs">—</strong></span>
+    <span>自己ベスト: <strong id="bestMs">—</strong></span>
+    <span>連続成功: <strong id="streak">0</strong></span>
+    <span>平均(直近5): <strong id="avgMs">—</strong></span>
+  </div>
+
+  <div class="bar" aria-hidden="true"><div id="barFill" class="bar-fill"></div></div>
+
+  <footer>ローカルに記録のみ保存 · 通信なし</footer>
+
+  <script>
+(function () {
+  const STORAGE_KEY = "reaction-arena-best-ms-v1";
+  const HISTORY_KEY = "reaction-arena-history-v1";
+
+  const arena = document.getElementById("arena");
+  const mainText = document.getElementById("mainText");
+  const subText = document.getElementById("subText");
+  const lastMsEl = document.getElementById("lastMs");
+  const bestMsEl = document.getElementById("bestMs");
+  const streakEl = document.getElementById("streak");
+  const avgMsEl = document.getElementById("avgMs");
+  const barFill = document.getElementById("barFill");
+
+  /** @type {'idle'|'waiting'|'go'|'result'} */
+  let phase = "idle";
+  let goTime = 0;
+  let timeoutId = 0;
+  let streak = 0;
+  /** @type {number[]} */
+  let history = [];
+
+  function loadBest() {
+    const v = localStorage.getItem(STORAGE_KEY);
+    const n = v ? parseInt(v, 10) : NaN;
+    return Number.isFinite(n) ? n : null;
+  }
+
+  function saveBest(ms) {
+    const cur = loadBest();
+    if (cur === null || ms < cur) {
+      localStorage.setItem(STORAGE_KEY, String(ms));
+      return true;
+    }
+    return false;
+  }
+
+  function loadHistory() {
+    try {
+      const raw = localStorage.getItem(HISTORY_KEY);
+      if (!raw) return [];
+      const arr = JSON.parse(raw);
+      return Array.isArray(arr) ? arr.filter((x) => typeof x === "number") : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveHistory() {
+    const trimmed = history.slice(-10);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(trimmed));
+  }
+
+  function updateBestDisplay() {
+    const b = loadBest();
+    bestMsEl.textContent = b !== null ? b + " ms" : "—";
+  }
+
+  function updateAvgDisplay() {
+    const recent = history.slice(-5);
+    if (recent.length === 0) {
+      avgMsEl.textContent = "—";
+      barFill.style.width = "0%";
+      return;
+    }
+    const sum = recent.reduce((a, x) => a + x, 0);
+    const avg = Math.round(sum / recent.length);
+    avgMsEl.textContent = avg + " ms";
+    const best = loadBest() || 300;
+    const pct = Math.max(0, Math.min(100, 100 - (avg / (best * 2)) * 100));
+    barFill.style.width = pct + "%";
+  }
+
+  function setPhaseIdle() {
+    phase = "idle";
+    arena.className = "arena";
+    mainText.textContent = "スタート";
+    mainText.className = "big";
+    subText.textContent = "クリック / タップ / Space で開始";
+    subText.className = "sub";
+  }
+
+  function clearWaitTimer() {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      timeoutId = 0;
+    }
+  }
+
+  function startRound() {
+    clearWaitTimer();
+    phase = "waiting";
+    arena.className = "arena waiting";
+    mainText.textContent = "待て…";
+    mainText.className = "big warn-text";
+    subText.textContent = "緑になるまで触らないで";
+    subText.className = "sub";
+
+    const delay = 1500 + Math.random() * 2500;
+    timeoutId = window.setTimeout(function () {
+      phase = "go";
+      goTime = performance.now();
+      arena.className = "arena go";
+      mainText.textContent = "今！";
+      mainText.className = "big go-text";
+      subText.textContent = "すぐタップ";
+      subText.className = "sub";
+      timeoutId = 0;
+    }, delay);
+  }
+
+  function showFalseStart() {
+    clearWaitTimer();
+    phase = "result";
+    streak = 0;
+    streakEl.textContent = "0";
+    arena.className = "arena false-start";
+    mainText.textContent = "早すぎ";
+    mainText.className = "big bad-text";
+    subText.textContent = "もう一度タップでリトライ";
+    subText.className = "sub";
+    window.setTimeout(function () {
+      if (phase === "result") setPhaseIdle();
+    }, 1400);
+  }
+
+  function finishRound(ms) {
+    clearWaitTimer();
+    phase = "result";
+    streak += 1;
+    streakEl.textContent = String(streak);
+
+    history.push(ms);
+    saveHistory();
+
+    const isRecord = saveBest(ms);
+    lastMsEl.textContent = ms + " ms";
+    updateBestDisplay();
+    updateAvgDisplay();
+
+    arena.className = "arena";
+    mainText.textContent = ms + " ms";
+    mainText.className = "big" + (isRecord ? " go-text" : "");
+    subText.textContent = isRecord
+      ? "自己ベスト更新！ タップで次へ"
+      : "タップで次のラウンド";
+    subText.className = "sub";
+
+    window.setTimeout(function () {
+      if (phase === "result") setPhaseIdle();
+    }, 2200);
+  }
+
+  function onActivate() {
+    if (phase === "idle") {
+      history = loadHistory();
+      startRound();
+      return;
+    }
+    if (phase === "waiting") {
+      showFalseStart();
+      return;
+    }
+    if (phase === "go") {
+      const ms = Math.round(performance.now() - goTime);
+      finishRound(ms);
+      return;
+    }
+    if (phase === "result") {
+      setPhaseIdle();
+    }
+  }
+
+  arena.addEventListener("click", function (e) {
+    e.preventDefault();
+    onActivate();
+  });
+
+  arena.addEventListener("keydown", function (e) {
+    if (e.key === " " || e.key === "Enter") {
+      e.preventDefault();
+      onActivate();
+    }
+  });
+
+  history = loadHistory();
+  updateBestDisplay();
+  updateAvgDisplay();
+})();
+  </script>
+</body>
+</html>
